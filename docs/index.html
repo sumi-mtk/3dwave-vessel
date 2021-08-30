@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 
-    <title> Ship Motion Simulator - SMS </title>
+    <title> 3D Wave Motion Simulator </title>
 
 <head>
 	<meta charset="utf-8">
@@ -42,11 +42,11 @@
 	
 	.box2 {
 		background: #FFFFFF;
-		width: 73.5%;
+		width: 100.0%;
 		height: 92%;
 		border-radius: 7px;
        
-        -webkit-transition: width 0.3s;
+        -webkit-transition: width 0.0s;
         transition-timing-function: ease-in;
         
 		position: absolute;
@@ -65,14 +65,14 @@
         background-color:#FFFFFF; 
        
         position:absolute; 
-        width:25%; 
+        width:0%; 
         height:100%; 
         top:0;
         left:0.5%;
         
         z-index: 3;
         
-        -webkit-transition: left 0.3s;
+        -webkit-transition: left 0.0s;
         transition-timing-function: ease-in;
         
         padding-top:1.5%;
@@ -99,12 +99,12 @@
         height: 100%;
         min-width: 15%;
         top: 10%;
-        left:30%;
+        left:3%;
    
       
         cursor:pointer;
         
-        -webkit-transition: left 0.3s;
+        -webkit-transition: left 0.0s;
         transition-timing-function: ease-in;
     }
         
@@ -282,8 +282,6 @@
         color: #2fa1d6; 
         display:inline;
     }
-    
-
  
 </style>
 
@@ -295,13 +293,7 @@
         
         <img id="waves" class="tooltipped" data-position="bottom" data-delay="250" data-tooltip="Launch vessel on sea!" src="figuras/waves.png" style="position:relative; height:80%" onclick="displayOcean()">
     
-        <img id="edit" class="tooltipped" data-position="bottom" data-delay="250" data-tooltip="Change vessel configuration" src="figuras/grid.png" style="position:relative;left: 15%; height:80%" onclick="displayGrids()">
-        
-        <a href="39_Chaves.pdf" target="_blank"><img class="tooltipped modal-trigger" data-position="bottom" data-delay="250" data-tooltip="Check the paper" src="figuras/tut_icon.png" style="position:relative;left: 30%; height:80%" ></a>
-        
-        <a href="http://www.shiplab.hials.org" target="_blank" ><img id = "logo" class="tooltipped" data-position="bottom" data-delay="250" data-tooltip="Go to ShipLab website" src="figuras/barquinho+shiplab.png" style="cursor:pointer;position:relative; left: 85%; top:10%; height:80%;"> </a>
-
-        
+        <img id="edit" class="tooltipped" data-position="bottom" data-delay="250" data-tooltip="Change vessel configuration" src="figuras/grid.png" style="position:relative;left: 15%; height:80%" onclick="displayGrids()" hidden>
     
     </span>
 </div>
@@ -375,20 +367,7 @@
                         </ul>
                     </div>
                 </div>  
-            </div> 
-            
-            
-            <div id="" class="moduleslist" > 
-                <br><br>
-                <b>Ship Virtual Prototype Simulator</b><br>
-               
-                by Olivia Chaves, Elias Hasle and Henrique Gaspar<br>
-                <a href="http://www.shiplab.hials.org" target="_blank">Ship Design and Operations Lab</a><br>
-                Faculty of Maritime Technology and Operations - NTNU (Aalesund, Norway)<br><br>
-                <img src="figuras/NTNU_engelsk-RGB.png" style="position:relative; width:70%"> <img><br><br>
-                This research was comteplated with the <a href="https://www.dnvgl.com/news/dnv-gl-presents-compit-award-2016-64687">DNV-GL COMPIT Award 2016</a> for the work <a href="https://www.dropbox.com/s/vy2x17r7hf1itx9/39_Chaves.pdf?dl=0">A Web Based Real-Time 3D Simulatorfor Ship Design Virtual Prototype and Motion Prediction</a><br>May 2016<br>
-            </div>	
-            
+            </div>             
             
         </div>
     </div>
@@ -411,7 +390,7 @@
     </div>
     
     
-    <!-- Camera buttom -->
+    <!-- Camera button -->
  
     <div style="position:absolute;top:9%;left:3%;z-index:2"> <a class="btn-floating btn-medium blue" onClick="bridgeCamera()"> <img src="figuras/bridgeSemFundo.png" style="position:relative;height:80%;margin-left:7%;margin-top:5%"> </a></div>
     

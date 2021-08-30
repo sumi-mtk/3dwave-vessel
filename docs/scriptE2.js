@@ -606,7 +606,7 @@ function init() {
 	controls.target = new THREE.Vector3(0, 1, 0); //1 to stay just above ocean at still water.
 	controls.minDistance = 140;
 	controls.maxDistance = 400;
-	//controls.enablePan = false; 
+	// controls.enablePan = false; 
 	//controls.enableDamping=true; //lagt til nettopp.
 	controls.update();
 	
@@ -658,7 +658,7 @@ function init() {
 		f2.add(vessel, 'Prism_Length_ratio', 0, 0.749).onChange(function(value){vessel.update_FRFs();});
 		f2.open();
 
-	displayGrids();
+	displayOcean();
 
 	//Load minimal valid vessel configuration:
 	vessel.loadCargoHold();
