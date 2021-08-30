@@ -639,11 +639,11 @@ function init() {
     
 	var f2 = gui.addFolder('Vessel parameters');
 		//f2.add(vessel, 'Speed_knots', 0, 27).onChange(function(value){vessel.update_FRFs();});
-		f2.add(vessel, 'L', 75, 180).listen().onChange(function(value){
+		f2.add(vessel, 'L', 75, 400).listen().onChange(function(value){
             vessel.update_FRFs();
             vessel.loadCargoHold();
         });
-        f2.add(vessel, 'B', 18, 35).onChange(function(value){
+        f2.add(vessel, 'B', 18, 100).onChange(function(value){
             vessel.update_FRFs();
             vessel.cont.scale.z=value/25;
         });
