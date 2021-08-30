@@ -1,1 +1,460 @@
-Hello, World!
+<!DOCTYPE html>
+<html>
+
+    <title> Ship Motion Simulator - SMS </title>
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+    <link type="text/css" rel="stylesheet" href="materialize/css/materialize.css"  media="screen,projection"/>
+    
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    
+    <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,200,200italic' rel='stylesheet' type='text/css'>
+    
+    <script src="three_r74/Detector.js"></script>
+    <script src="three_r74/three.js"></script>
+    <script src="three_r74/OrbitControls.js"></script>
+    <script src="three_r74/TextureLoader.js"></script>
+    <script src="three_r74/ColladaLoader2.js"></script> <!--TEST-->
+    <script src="three_r74/Mirror.js"></script>
+    <script src="three_r74/WaterShader.js"></script>
+    <script src="three_r74/dat.gui.js"></script>
+
+    <script src="otherLibraries/jquery-2.1.1.min.js"></script>
+    
+    <script type="text/javascript" src="materialize/js/materialize.min.js"></script>
+    <script type="text/javascript" src="materialize/js/materialize.js"></script>
+    
+    <script src="zingchart.min.js"></script>
+      
+    <script src="scriptE2.js" defer></script>
+    
+
+</head>
+    
+<body style="overflow:hidden">
+    
+<style>
+
+	body {background-color: #F2F2F2;}
+    
+	
+	.box2 {
+		background: #FFFFFF;
+		width: 73.5%;
+		height: 92%;
+		border-radius: 7px;
+       
+        -webkit-transition: width 0.3s;
+        transition-timing-function: ease-in;
+        
+		position: absolute;
+		top: 7%; 
+		right: 0.5%;
+		
+		border-style: solid;
+		border-color: #D9DADA;
+		border-width: 1px;
+        
+        overflow:hidden;
+
+	}
+    
+    #modulesMenu{
+        background-color:#FFFFFF; 
+       
+        position:absolute; 
+        width:25%; 
+        height:100%; 
+        top:0;
+        left:0.5%;
+        
+        z-index: 3;
+        
+        -webkit-transition: left 0.3s;
+        transition-timing-function: ease-in;
+        
+        padding-top:1.5%;
+         
+    }
+
+    .moduleslist{
+		position:relative; 
+        width: 90%;
+        border: solid;
+        border-color: white;
+       
+       
+		font-family: 'Source Sans Pro', sans-serif;
+		font-style: bold;
+        vertical-align: middle;
+        
+        margin: 2% 2% 5% 5%;	
+
+	}
+    
+    #navBarIcons{
+        position: absolute;
+        height: 100%;
+        min-width: 15%;
+        top: 10%;
+        left:30%;
+   
+      
+        cursor:pointer;
+        
+        -webkit-transition: left 0.3s;
+        transition-timing-function: ease-in;
+    }
+        
+    #footer{
+        background-color: black;
+		width: 99%;
+		height: 32%;
+        
+        border-radius: 0 0 7px 7px;
+	
+		position: absolute;
+		top: 68%; 
+		right: 0.5%;
+        
+        padding-top: 3px;
+        padding-left: 50px;
+        border: solid;
+        
+        z-index: 2;
+        overflow:hidden;
+        display: none;
+    }
+    
+	.scrollbar{
+		position:relative;
+		margin-left: 0%;
+		float: left;
+		height: 90%;
+		width: 100%;
+		background: #F5F5F5;
+		overflow-y: scroll;
+		margin-bottom: 25px;
+	}
+
+	.force-overflow{
+		min-height: 110%;
+	}
+
+	.selector{
+        
+		font-family: arial, sans-serif;
+		font-size: 18px;
+		position: relative; 
+	}
+	
+    .tooltip {
+	display: block;
+	position: absolute;
+	
+	font: 400 12px/12px Arial;
+	border-radius: 3px;
+	background: #fff;
+	top: -25px;
+	padding: 5px;
+	left: -9px;
+	text-align: center;
+	width: 50px;
+}
+    
+    #moveGUI{ 
+        position: absolute;
+        top: 7%;
+        right: 2%;
+        z-index: 5;
+        display: none;
+        
+    }
+    
+    
+        
+    .dg.main.taller-than-window .close-button {
+        border-top: 1px solid #ddd;
+    }
+
+    .dg.main .close-button {
+    background-color: #ccc;
+}
+ 
+    .dg.main .close-button:hover {
+    background-color: #ddd;
+}
+
+    .dg {
+        color: #555;
+        text-shadow: none !important;
+        
+        padding-top: 100xp;
+}
+
+    .dg.main::-webkit-scrollbar {
+    background: #fafafa;
+        
+}
+
+    .dg.main::-webkit-scrollbar-thumb {
+    background: #bbb;
+        
+}
+ 
+    .dg li:not(.folder) {
+        background: #F0F0F0  ;
+        border-bottom: 1px solid #ddd;
+        font-size: 0.9vmax;
+        
+}
+ 
+    .dg li.save-row .button {
+        text-shadow: none !important;
+        font-family: 'Source Sans Pro', sans-serif;
+        font-size: 1vmax;
+        text-decoration-color: blueviolet;
+}
+
+    .dg li.title {
+        background: #ccc url(data:image/gif;base64,R0lGODlhBQAFAJEAAP////Pz8////////yH5BAEAAAIALAAAAAAFAAUAAAIIlI+hKgFxoCgAOw==) 6px 10px no-repeat;
+        font-size: 1vmax;
+}
+
+    .dg .cr.function:hover,.dg .cr.boolean:hover {
+    background: #fff;
+}
+ 
+    .dg .c input[type=text] {
+        background: #e9e9e9;
+        font-size: 0.9vmax;
+        
+        position: relative;
+        margin-top: -10px;
+}
+ 
+    .dg .c input[type=text]:hover {
+    background: #eee;
+        
+        
+}
+ 
+    .dg .c input[type=text]:focus {
+    background: #eee;
+    color: #555;
+        
+}
+ 
+    .dg .c .slider {
+    background: #e9e9e9;
+}
+
+    .dg .c .slider:hover {
+    background: #eee;
+}
+
+     
+    
+    
+    
+    ul{ 
+        font-size: 1.2vmax; 
+        cursor:pointer; }
+    
+    h7{
+        font-family: 'Source Sans Pro', sans-serif;
+        font-size: 1.5vmax;
+        font-style: italic;
+    }
+    
+    .p{
+        font-family: 'Source Sans Pro', sans-serif;
+        font-size: 1.1vmax;
+        color: white; 
+        display:inline;
+    }
+    
+    .numbers{
+        font-family: 'Source Sans Pro', sans-serif;
+        font-size: 1.1vmax;
+        color: #2fa1d6; 
+        display:inline;
+    }
+    
+
+ 
+</style>
+
+
+<div id="head" style="background-color:#525252;color:#525252;position:fixed;top:0px;left:0px;width:100%;height:6%;" >
+   
+
+    <span id="navBarIcons">
+        
+        <img id="waves" class="tooltipped" data-position="bottom" data-delay="250" data-tooltip="Launch vessel on sea!" src="figuras/waves.png" style="position:relative; height:80%" onclick="displayOcean()">
+    
+        <img id="edit" class="tooltipped" data-position="bottom" data-delay="250" data-tooltip="Change vessel configuration" src="figuras/grid.png" style="position:relative;left: 15%; height:80%" onclick="displayGrids()">
+        
+        <a href="39_Chaves.pdf" target="_blank"><img class="tooltipped modal-trigger" data-position="bottom" data-delay="250" data-tooltip="Check the paper" src="figuras/tut_icon.png" style="position:relative;left: 30%; height:80%" ></a>
+        
+        <a href="http://www.shiplab.hials.org" target="_blank" ><img id = "logo" class="tooltipped" data-position="bottom" data-delay="250" data-tooltip="Go to ShipLab website" src="figuras/barquinho+shiplab.png" style="cursor:pointer;position:relative; left: 85%; top:10%; height:80%;"> </a>
+
+        
+    
+    </span>
+</div>
+
+    
+    <!-- Menu -->
+    <div class="scrollbar z-depth-1" id="modulesMenu" > 
+        <div class="force-overflow ">
+            
+            
+            <div id="" class="moduleslist" > 
+                <h7>Bow</h7>
+                <div class="row valign" style="margin-top:2%; margin-bottom:-2%" >
+                    <div class="col s12" >
+                        <ul class="tabs z-depth-1" >
+                            <li class="tab col s3" style="margin-top:-2%"><a id="Sbow" onClick="vessel.loadBow('Simple')" class="active">Simple Bow</a></li>
+                            <li class="tab col s3" style="margin-top:-2%"><a id="Xbow" onClick="vessel.loadBow('X')">X Bow</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>	
+                        
+                        
+            <div id="" class="moduleslist" > 
+                <h7 >Accommodation Area</h7>
+                <div class="row valign" style="margin-top:2%; margin-bottom:-2%" >
+                    <div class="col s12" >
+                        <ul class="tabs z-depth-1">
+                            <li class="tab col s3" style="margin-top:-2%" onClick="vessel.loadAccommodation('S')"><a id="Saccomm" class="active">Small</a></li>
+                            <li class="tab col s3" style="margin-top:-2%" onClick="vessel.loadAccommodation('M')"><a id="Maccomm" >Medium</a></li>
+                            <li class="tab col s3" style="margin-top:-2%" onClick="vessel.loadAccommodation('B')"><a id="Baccomm">Big</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+                              
+
+            <div id="" class="moduleslist"> 
+                <h7>Propulsion</h7>
+                <div class="row valign" style="margin-top:2%; margin-bottom:-2%">
+                                <div class="col s12">
+                                  <ul class="tabs z-depth-1">
+                                    <li class="tab col s3" style="margin-top:-2%" onClick="vessel.loadStern('Simple')"><a id="shaft" class="active"  >Shaft Driven</a></li>
+                                    <li class="tab col s3" style="margin-top:-2%" onClick="vessel.loadStern('Azimuth')"><a id="azimuth" >Azimuth Pods</a></li>
+                                  </ul>
+                                </div>
+                              </div>
+            </div>
+
+
+            <div id="" class="moduleslist" > 
+                <h7>Winch </h7>
+                            <div class="row valign" style="margin-top:2%; margin-bottom:-2%">
+                                <div class="col s12">
+                                  <ul class="tabs z-depth-1">
+                                    <li class="tab col s3" style="margin-top:-2%" onclick="vessel.winchIN()"><a id="winchIN"  >In</a></li>
+                                    <li class="tab col s3" style="margin-top:-2%" onclick="vessel.winchOUT()"><a id="winchOUT" class="active">Out</a></li>
+                                  </ul>
+                                </div>
+                              </div>
+            </div>
+                    
+                    
+            <div id="" class="moduleslist" >
+                <h7>Crane</h7>
+                <div class="row valign" style="margin-top:2%; margin-bottom:-2%">
+                    <div class="col s12">
+                        <ul class="tabs z-depth-1">
+                            <li class="tab col s3" style="margin-top:-2%" onClick="vessel.craneIN()"><a id="craneIN" >In</a></li>
+                            <li class="tab col s3" style="margin-top:-2%" onClick="vessel.craneOUT()"><a id="craneOUT" class="active" >Out</a></li>
+                        </ul>
+                    </div>
+                </div>  
+            </div> 
+            
+            
+            <div id="" class="moduleslist" > 
+                <br><br>
+                <b>Ship Virtual Prototype Simulator</b><br>
+               
+                by Olivia Chaves, Elias Hasle and Henrique Gaspar<br>
+                <a href="http://www.shiplab.hials.org" target="_blank">Ship Design and Operations Lab</a><br>
+                Faculty of Maritime Technology and Operations - NTNU (Aalesund, Norway)<br><br>
+                <img src="figuras/NTNU_engelsk-RGB.png" style="position:relative; width:70%"> <img><br><br>
+                This research was comteplated with the <a href="https://www.dnvgl.com/news/dnv-gl-presents-compit-award-2016-64687">DNV-GL COMPIT Award 2016</a> for the work <a href="https://www.dropbox.com/s/vy2x17r7hf1itx9/39_Chaves.pdf?dl=0">A Web Based Real-Time 3D Simulatorfor Ship Design Virtual Prototype and Motion Prediction</a><br>May 2016<br>
+            </div>	
+            
+            
+        </div>
+    </div>
+
+    
+
+    <div id="box2" class="box2">  </div>
+
+
+    
+    <!-- Loading -->
+    <div id="splash" style="position:absolute; margin-left:60%; margin-top:25%; z-index:20">
+        <h3 id="splashinfo" style="font-family: 'Source Sans Pro', sans-serif; font-size: 3vmax; font-style: italic;"></h3>
+        
+        <!-- Pre-loader bar -->
+          <div class="progress" style="position:relative; background-color:#ffe0b3; width:300%; margin-left:-100%; margin-top:0">
+              <div class="indeterminate orange" ></div>
+          </div>
+	
+    </div>
+    
+    
+    <!-- Camera buttom -->
+ 
+    <div style="position:absolute;top:9%;left:3%;z-index:2"> <a class="btn-floating btn-medium blue" onClick="bridgeCamera()"> <img src="figuras/bridgeSemFundo.png" style="position:relative;height:80%;margin-left:7%;margin-top:5%"> </a></div>
+    
+    <div style="position:absolute;top:9%;left:8%;z-index:2"> <a class="btn-floating btn-medium blue" onClick="globeCamera()"><i class=" medium material-icons">language</i></a></div>
+    
+    
+     <!-- Footer --> 
+    <div id ="footer">
+    
+        <div id="arrows"  style="cursor:pointer;position:relative;top:0px;left:-50px;height:15%;" > <a alt="open/close tab" onclick="abreFecha()"><i class="material-icons" style="font-size:250%">swap_vertical_circle</i></a></div>
+    
+        <div id ='chartDivBla' style="position:relative;float:right;width:80%"></div>
+    
+        
+        <div class="p"> Heave amplitude:</div>
+        <div id="heaveAmplitude" class="numbers"></div>
+        <div class="p"> m </div>
+    
+        <p></p>
+        <div class="p"> Pitch amplitude:</div>
+        <div id="pitchAmplitude" class="numbers"></div>
+        <div class="p"> deg </div>
+       
+        <p></p>
+        <div class="p" > Roll amplitude:</div>
+        <div id="rollAmplitude" class="numbers"></div>
+        <div class="p"> deg </div>
+       
+        <p></p>
+        <div class="p" style="display:inline" class="numbers"> Wave length:</div>
+        <div id="waveLength" class="numbers"></div>
+        <div class="p"> m </div>
+        
+        <p></p>
+        <div class="p" style="display:inline;" class="numbers"> Roll natural period:</div>
+        <div id="Tn" class="numbers"></div>
+        <div class="p"> s </div>
+    
+    
+</div>
+
+
+    
+</body>
+</html>
+
